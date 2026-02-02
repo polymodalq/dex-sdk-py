@@ -156,8 +156,8 @@ for account_id in exchange.account_ids():
     # View positions (by perpetual ID)
     for perp_id in account.position_perpetual_ids():
         position = account.get_position(perp_id)
-        print(f"  Position: {position.size} @ {position.entry_price}")
-        print(f"    Liquidation price: {position.liquidation_price}")
+        print(f" Position: {position.size} @ {position.entry_price}")
+        print(f" Liquidation price: {position.liquidation_price}")
 ```
 
 ### Build Transactions
@@ -539,7 +539,7 @@ tests/
 │   ├── test_numeric.py      # Numeric types
 │   ├── test_order_request.py # Order building
 │   ├── test_trade_types.py  # Trade types
-│   └── test_module_exports.py # API surface
+│   └── test_module_exports.py # Package surface
 └── integration/             # Integration tests
     ├── test_snapshot.py     # Snapshot fetching
     ├── test_events.py       # Event parsing
