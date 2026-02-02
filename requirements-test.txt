@@ -1,0 +1,26 @@
+# Test dependencies for Perpl DEX SDK Python bindings
+# Install with: pip install -r requirements-test.txt
+
+# Core testing
+pytest>=7.4.0
+pytest-asyncio>=0.21.0
+pytest-timeout>=2.2.0
+pytest-cov>=4.1.0
+
+# Property-based testing
+hypothesis>=6.92.0
+
+# Mocking
+responses>=0.24.0
+freezegun>=1.2.0
+
+# Ethereum tools for signer tests and RPC comparison
+eth-account>=0.10.0
+web3>=6.0.0
+
+# Type checking
+mypy>=1.0
+
+# Code formatting (for test files)
+black>=23.0
+ruff>=0.1

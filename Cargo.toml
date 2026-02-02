@@ -1,0 +1,84 @@
+# Python bindings for Perpl DEX SDK
+# 
+# This crate provides zero-overhead Python bindings to the Rust dex-sdk.
+# All semantics, naming conventions, and behavior mirror the original Rust implementation.
+#
+# Architecture Philosophy:
+# - Original Rust SDK remains completely untouched (imported as dependency)
+# - Minimal FFI layer using PyO3 for maximum performance
+# - Exact nomenclature mapping: Rust snake_case -> Python snake_case
+# - Type-safe conversions with production-grade error handling
+# - Enterprise-ready observability (logging, metrics, tracing)
+
+[package]
+name = "perpl-sdk-py"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.85.0"
+authors = ["AionEX"]
+license = "MIT OR Apache-2.0"
+
+[lib]
+name = "_native"
+crate-type = ["cdylib"]
+doc = false
+
+[dependencies]
+# Core dependency - original Rust SDK (zero modifications)
+dex-sdk = { package = "perpl-sdk", path = "/sdk/crates/sdk", default-features = false }
+
+# PyO3 ecosystem - Python FFI
+pyo3 = { version = "0.21", features = ["extension-module", "abi3-py38", "multiple-pymethods"] }
+
+# Performance optimizations
+parking_lot = "0.12"
+
+# Direct dependencies needed by bindings (versions match SDK)
+fastnum = "0.7.4"
+alloy = { version = "1.4.0", default-features = false, features = [
+  "contract",
+  "providers",
+  "eips",
+  "provider-http",
+  "reqwest",
+  "reqwest-rustls-tls",
+  "rpc",
+  "rpc-client",
+  "rpc-types",
+] }
+
+# Async runtime (must match dex-sdk)
+tokio = { version = "1.49.0", features = ["rt-multi-thread", "sync", "macros"] }
+futures = "0.3.31"
+
+# Observability - production-grade
+tracing = { version = "0.1", features = ["attributes"] }
+tracing-subscriber = { version = "0.3", features = ["env-filter", "json"] }
+
+# Error handling
+anyhow = "1.0"
+thiserror = "2.0.17"
+
+# Shared runtime
+once_cell = "1.19"
+
+# WebSocket support
+tokio-tungstenite = { version = "0.24", features = ["rustls-tls-webpki-roots"] }
+
+# JSON for RPC
+serde_json = "1.0"
+serde = { version = "1.0", features = ["derive"] }
+
+# URL parsing
+url = "2.5"
+
+# Hex encoding
+hex = "0.4"
+
+[dev-dependencies]
+criterion = "0.5"
+
+[features]
+default = []
+# Enterprise observability features
+enterprise = ["tracing-subscriber/json"]

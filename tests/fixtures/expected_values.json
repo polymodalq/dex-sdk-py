@@ -1,0 +1,117 @@
+{
+  "version": "1.0.0",
+  "description": "Known-good reference values for validation tests",
+  "created": "2026-01-14",
+  
+  "testnet_config": {
+    "chain_id": 10143,
+    "network_name": "Monad Testnet",
+    "block_time_seconds": 1
+  },
+  
+  "testnet_perpetual_0": {
+    "symbol": "BTC/USD",
+    "name": "Bitcoin",
+    "price_decimals": 6,
+    "size_decimals": 8,
+    "initial_margin_min": "0.01",
+    "initial_margin_max": "0.50",
+    "maintenance_margin_typical": "0.005",
+    "maker_fee_typical": "0.0001",
+    "taker_fee_typical": "0.0005",
+    "funding_interval_blocks": 3600
+  },
+  
+  "testnet_perpetual_1": {
+    "symbol": "ETH/USD",
+    "name": "Ethereum",
+    "price_decimals": 6,
+    "size_decimals": 8,
+    "initial_margin_min": "0.01",
+    "initial_margin_max": "0.50"
+  },
+  
+  "liquidation_test_cases": [
+    {
+      "description": "Standard long position",
+      "entry_price": "100.0",
+      "size": "10.0",
+      "deposit": "100.0",
+      "type": "Long",
+      "maintenance_margin": "0.05",
+      "expected_liquidation_price": "95.0",
+      "expected_bankruptcy_price": "90.0"
+    },
+    {
+      "description": "Standard short position",
+      "entry_price": "100.0",
+      "size": "10.0",
+      "deposit": "100.0",
+      "type": "Short",
+      "maintenance_margin": "0.05",
+      "expected_liquidation_price": "105.0",
+      "expected_bankruptcy_price": "110.0"
+    },
+    {
+      "description": "High leverage long",
+      "entry_price": "50000.0",
+      "size": "1.0",
+      "deposit": "2500.0",
+      "type": "Long",
+      "maintenance_margin": "0.005",
+      "expected_liquidation_price": "47750.0",
+      "expected_bankruptcy_price": "47500.0"
+    },
+    {
+      "description": "Near liquidation long",
+      "entry_price": "100.0",
+      "size": "10.0",
+      "deposit": "50.0",
+      "type": "Long",
+      "maintenance_margin": "0.05",
+      "expected_liquidation_price": "100.0",
+      "expected_bankruptcy_price": "95.0"
+    }
+  ],
+  
+  "numeric_precision_cases": [
+    {
+      "description": "UD64 precision",
+      "type": "UD64",
+      "input": "123456.789012345",
+      "expected_precision_digits": 9
+    },
+    {
+      "description": "UD128 precision",
+      "type": "UD128",
+      "input": "123456789012345678.901234567890123456",
+      "expected_precision_digits": 18
+    },
+    {
+      "description": "D256 negative precision",
+      "type": "D256",
+      "input": "-999999999999999999.999999999999999999",
+      "expected_precision_digits": 18
+    }
+  ],
+  
+  "gas_estimation_bounds": {
+    "single_order_min": 100000,
+    "single_order_max": 500000,
+    "multi_order_per_order": 50000,
+    "block_gas_limit": 30000000
+  },
+  
+  "fee_bounds": {
+    "maker_fee_min": "0.0",
+    "maker_fee_max": "0.01",
+    "taker_fee_min": "0.0",
+    "taker_fee_max": "0.01"
+  },
+  
+  "funding_rate_bounds": {
+    "min": "-0.01",
+    "max": "0.01",
+    "typical_magnitude": "0.0001"
+  }
+}
