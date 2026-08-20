@@ -92,7 +92,7 @@ Ensure the core SDK is available at `/sdk/` relative to this directory, or updat
 
 ```bash
 # Clone Python SDK
-git clone https://github.com/aaruranc/dex-sdk-py.git
+git clone https://github.com/polymodalq/dex-sdk-py.git
 cd dex-sdk-py
 
 # Clone Rusk SDK (or update relative path if already cloned)
